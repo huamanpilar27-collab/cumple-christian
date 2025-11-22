@@ -56,24 +56,24 @@ for(let i=0;i<40;i++){
   container.appendChild(balloon);
 }
 
-// Animación secuencial 15 segundos
+// Animación secuencial lenta: Confeti 5s, Título+Torta 1min, Foto+Dedicatoria 1min
 const confetti=document.getElementById("confetti");
 const titulo=document.getElementById("titulo");
 const torta=document.getElementById("torta");
 const foto=document.getElementById("foto");
 const dedicatoria=document.getElementById("dedicatoria");
 
-// Confeti aparece al inicio
+// Confeti aparece al inicio y dura 5 segundos
 setTimeout(()=>{confetti.style.opacity=1;}, 0);
+setTimeout(()=>{confetti.style.opacity=0;}, 5000);
 
-// Título + torta aparecen a los 5s
+// Título + torta aparecen a los 5s y duran 1 minuto (60s)
 setTimeout(()=>{titulo.style.opacity=1; torta.style.opacity=1;}, 5000);
+setTimeout(()=>{titulo.style.opacity=0; torta.style.opacity=0;}, 65000);
 
-// Confeti + título + torta desaparecen a los 10s
-setTimeout(()=>{confetti.style.opacity=0; titulo.style.opacity=0; torta.style.opacity=0;}, 10000);
-
-// Foto + dedicatoria aparecen a los 10s y permanecen visibles
-setTimeout(()=>{foto.style.opacity=1; dedicatoria.style.opacity=1;}, 10000);
+// Foto + dedicatoria aparecen a los 65s y duran 1 minuto (hasta 125s)
+setTimeout(()=>{foto.style.opacity=1; dedicatoria.style.opacity=1;}, 65000);
+setTimeout(()=>{foto.style.opacity=0; dedicatoria.style.opacity=0;}, 125000);
 </script>
 
 </body>
