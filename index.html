@@ -1,187 +1,167 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>¡Feliz cumpleaños CHRISTIAN!</title>
-  <style>
-    :root{
-      --bg:#0f172a; /* dark background so green stands out */
-      --green1:#0f9b58;
-      --green2:#2ecc71;
-      --green3:#16a34a;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feliz Cumpleaños Christian</title>
+
+<!-- FUENTES -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        margin: 0;
+        background: #000;
+        overflow-x: hidden;
+        font-family: 'Poppins', sans-serif;
+        text-align: center;
+        color: white;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
-    body{background:linear-gradient(180deg,var(--bg),#04202a);overflow:hidden;}
 
-    /* full-screen stage */
-    .stage{position:relative;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column}
-
-    /* balloons container sits behind main content */
-    .balloons{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-    .balloon{
-      position:absolute;
-      width:70px;height:90px;border-radius:60% 60% 60% 60%;
-      transform-origin:center bottom;
-      box-shadow:inset -5px -10px rgba(0,0,0,0.15), 0 6px 14px rgba(0,0,0,0.25);
-      display:flex;align-items:flex-end;justify-content:center;overflow:visible;
+    /* CONFETI */
+    .confetti {
+        position: fixed;
+        width: 10px;
+        height: 15px;
+        background: red;
+        top: -10px;
+        animation: caer 4s linear infinite;
+        opacity: 0.8;
     }
-    .balloon::after{content:"";position:absolute;left:50%;bottom:-14px;width:2px;height:28px;background:rgba(0,0,0,0.15);transform:translateX(-50%);}
 
-    /* slight color variations */
-    .g1{background:linear-gradient(180deg,var(--green1),#0b7c42)}
-    .g2{background:linear-gradient(180deg,var(--green2),#1fb25a)}
-    .g3{background:linear-gradient(180deg,var(--green3),#0e7b3b)}
+    @keyframes caer {
+        0% { transform: translateY(0) rotate(0); }
+        100% { transform: translateY(110vh) rotate(360deg); }
+    }
 
-    /* floating animation */
+    /* GLOBOS */
+    .balloon {
+        position: absolute;
+        width: 60px;
+        height: 80px;
+        background: #3be37d;
+        border-radius: 50% 50% 45% 45%;
+        animation: floatUp 7s linear infinite;
+        opacity: 0.85;
+    }
+
     @keyframes floatUp {
-      0%{transform:translateY(100vh) rotate(0deg); opacity:0}
-      6%{opacity:1}
-      100%{transform:translateY(-30vh) rotate(360deg); opacity:0.95}
+        0% { transform: translateY(100vh) scale(1); opacity: 1; }
+        100% { transform: translateY(-120vh) scale(1.2); opacity: 0.4; }
     }
 
-    /* center card with cake */
-    .card{
-      position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;gap:18px;padding:32px;border-radius:18px;backdrop-filter:blur(6px);
-      background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));box-shadow:0 10px 40px rgba(2,6,23,0.6);
+    /* TÍTULO */
+    #titulo {
+        margin-top: 120px;
+        font-size: 60px;
+        font-family: 'Great Vibes', cursive;
+        display: none;
+        animation: fadeIn 3s ease forwards;
     }
 
-    /* cake size */
-    .cake{width:min(420px,80vw);height:auto}
+    /* TORTA */
+    #torta {
+        width: 350px;
+        margin-top: 20px;
+        border-radius: 20px;
+        display: none;
+        animation: fadeIn 2s ease forwards;
+        box-shadow: 0 0 20px #fff;
+    }
 
-    .message{font-size:clamp(18px,3.5vw,36px);text-align:center;color:#e6ffe9;font-weight:700;letter-spacing:1px}
-    .name{font-size:clamp(28px,5vw,56px);color:#baffc9;text-shadow:0 4px 18px rgba(0,0,0,0.6);}
+    /* FOTO */
+    #foto {
+        width: 260px;
+        margin-top: 25px;
+        border-radius: 20px;
+        display: none;
+        animation: fadeIn 2s ease forwards;
+        box-shadow: 0 0 20px #3be37d;
+    }
 
-    /* small sparkle under card */
-    .shadow{width:80%;max-width:600px;height:22px;border-radius:50%;background:radial-gradient(ellipse at center, rgba(0,0,0,0.45), transparent 60%);opacity:0.5}
+    /* MENSAJE */
+    #mensaje {
+        margin: 30px auto;
+        width: 90%;
+        max-width: 650px;
+        font-size: 22px;
+        display: none;
+        animation: fadeIn 3s ease forwards;
+        line-height: 1.6;
+        text-shadow: 0 0 10px #3be37d;
+    }
 
-    /* responsive tweaks */
-    @media (max-width:420px){.balloon{width:50px;height:66px}}
-  .photo-box{position:absolute;bottom:20px;right:20px;width:180px;height:180px;border-radius:14px;overflow:hidden;border:3px solid #baffc9;box-shadow:0 4px 18px rgba(0,0,0,0.4);}#user-photo{width:100%;height:100%;object-fit:cover;}
-  .special-message{font-size:clamp(16px,3vw,30px);color:#d4ffe1;text-align:center;margin-top:10px;font-weight:500;text-shadow:0 2px 10px rgba(0,0,0,0.5);}
-  .special-message-2{font-size:clamp(15px,2.6vw,26px);color:#e8fff1;text-align:center;margin-top:6px;font-weight:400;opacity:0.9;}
-  </style>
+    @keyframes fadeIn {
+        from {opacity: 0; transform: scale(0.9);}
+        to {opacity: 1; transform: scale(1);}
+    }
+</style>
 </head>
+
 <body>
-  <div class="stage">
-    <div class="balloons" id="balloons"></div>
 
-    <div class="card" role="main" aria-label="Tarjeta de cumpleaños">
-      <!-- Cake SVG -->
-      <svg class="cake" viewBox="0 0 600 520" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- plate -->
-        <ellipse cx="300" cy="480" rx="220" ry="30" fill="#f2f6f8" opacity="0.8" />
+<!-- AUDIO -->
+<audio autoplay>
+  <source src="https://raw.githubusercontent.com/huamanpilar27-collab/cumple-christian/main/WhatsApp%20Audio%202025-11-22%20at%201.17.50%20AM.mpeg" type="audio/mpeg">
+</audio>
 
-        <!-- bottom layer -->
-        <rect x="110" y="260" width="380" height="160" rx="40" fill="#ffd59a" />
-        <rect x="125" y="240" width="350" height="40" rx="20" fill="#ffb86b" />
+<!-- CONFETI -->
+<div id="confeti"></div>
 
-        <!-- middle layer -->
-        <rect x="140" y="200" width="320" height="80" rx="34" fill="#fff1d6" />
-        <rect x="160" y="180" width="280" height="40" rx="20" fill="#ffd59a" />
+<!-- GLOBOS -->
+<div id="globos"></div>
 
-        <!-- icing drip -->
-        <path d="M115 260 C150 320 220 250 300 270 C380 290 450 250 485 260 L485 280 L115 280 Z" fill="#ffffff" opacity="0.95"/>
+<!-- TEXTO -->
+<h1 id="titulo">Feliz Cumpleaños CHRISTIAN</h1>
 
-        <!-- candles -->
-        <g id="candles" transform="translate(0,-20)">
-          <rect x="265" y="125" width="14" height="60" rx="6" fill="#ff6b6b" />
-          <rect x="296" y="125" width="14" height="60" rx="6" fill="#5ae1a7" />
-          <rect x="327" y="125" width="14" height="60" rx="6" fill="#66b3ff" />
+<!-- TORTA -->
+<img id="torta" src="https://i.imgur.com/pYRds5F.png" alt="Torta">
 
-          <!-- flames -->
-          <path d="M272 118 C272 108 282 108 282 118 C282 125 272 124 272 118 Z" fill="#ffd166"/>
-          <path d="M303 118 C303 108 313 108 313 118 C313 125 303 124 303 118 Z" fill="#ffd166"/>
-          <path d="M334 118 C334 108 344 108 344 118 C344 125 334 124 334 118 Z" fill="#ffd166"/>
-        </g>
+<!-- FOTO -->
+<img id="foto" src="A_birthday_digital_image_for_Christian_features_a_.png" alt="Foto">
 
-        <!-- small decorations -->
-        <circle cx="180" cy="310" r="10" fill="#ff6b6b" />
-        <circle cx="420" cy="340" r="12" fill="#5ae1a7" />
-        <circle cx="350" cy="280" r="8" fill="#66b3ff" />
+<!-- MENSAJE -->
+<div id="mensaje">
+Hoy celebro lo maravilloso que eres, mi pancita de Winnie Pooh. <br>
+Que este nuevo año te llene de alegría, amor y sueños cumplidos. <br>
+Gracias por existir y por hacer mis días más bonitos. <br>
+Te quiero muchísimo. 💚🎉
+</div>
 
-      </svg>
-
-      <div class="message">FELIZ CUMPLEAÑOS</div>
-      <div class="name">CHRISTIAN</div>
-      <div class="special-message">Eres mi alegría diaria, mi paz bonita y mi pancita de Winnie Pooh 💚 Que este cumpleaños te abrace con ternura y te llene de todo lo que mereces.</div>
-      <div class="shadow" aria-hidden="true"></div>
-    </div>
-  </div>
-
-  <script>
-    // Create many green balloons with random positions, sizes and animation durations
-    const container = document.getElementById('balloons');
-    const balloonsCount = 26; // adjust if you want more/less
-    const greens = ['g1','g2','g3'];
-
-    function rand(min, max){return Math.random()*(max-min)+min}
-
-    for(let i=0;i<balloonsCount;i++){
-      const b = document.createElement('div');
-      b.className = 'balloon ' + greens[Math.floor(Math.random()*greens.length)];
-
-      const size = Math.round(rand(48,110));
-      b.style.width = size + 'px';
-      b.style.height = Math.round(size*1.25) + 'px';
-
-      // random horizontal position (some start off-screen to the sides)
-      const left = Math.round(rand(-10,110));
-      b.style.left = left + '%';
-
-      // start lower than screen so they float up
-      const delay = rand(-20,2); // negative delays let some already be mid-flight
-      const duration = rand(14,32);
-      b.style.animation = `floatUp ${duration}s linear ${delay}s infinite`;
-
-      // slight rotation offset
-      b.style.transform = `translateY(0) rotate(${Math.round(rand(-30,30))}deg)`;
-
-      // subtle transparency variance
-      b.style.opacity = rand(0.85,1).toFixed(2);
-
-      // add slight horizontal wiggle using CSS variable + inline keyframes via style attribute isn't allowed; instead add small animation via transform on a child
-      container.appendChild(b);
+<script>
+/* CONFETI */
+function crearConfeti() {
+    for (let i = 0; i < 120; i++) {
+        let c = document.createElement("div");
+        c.classList.add("confetti");
+        c.style.left = Math.random() * 100 + "vw";
+        c.style.background = ["#3be37d", "#ffffff", "#39d47a"][Math.floor(Math.random()*3)];
+        c.style.animationDuration = (Math.random() * 3 + 3) + "s";
+        document.body.appendChild(c);
     }
+}
+crearConfeti();
 
-    // Optional: click to congratulate (small burst of balloons)
-    document.querySelector('.card').addEventListener('click', ()=>{
-      for(let i=0;i<12;i++){
-        const e = document.createElement('div');
-        e.className = 'balloon ' + greens[Math.floor(Math.random()*greens.length)];
-        const size = Math.round(rand(24,70));
-        e.style.width = size+'px'; e.style.height = Math.round(size*1.25)+'px';
-        e.style.left = rand(30,70)+'%';
-        e.style.top = '50%';
-        e.style.animation = `floatUp ${rand(8,16)}s linear 0s 1`;
-        container.appendChild(e);
-        // remove after animation
-        setTimeout(()=>e.remove(),17000);
-      }
-    });
+/* GLOBOS */
+function crearGlobos() {
+    const globoContainer = document.getElementById('globos');
+    for (let i = 0; i < 40; i++) {
+        let globo = document.createElement('div');
+        globo.classList.add('balloon');
+        globo.style.left = Math.random() * 100 + "vw";
+        globo.style.animationDuration = (Math.random() * 4 + 4) + "s";
+        globo.style.transform = "scale(" + (Math.random() * 0.5 + 0.8) + ")";
+        globoContainer.appendChild(globo);
+    }
+}
+crearGlobos();
 
-    // Accessibility: pressing space or enter on the card triggers the same congratulatory effect
-    document.querySelector('.card').setAttribute('tabindex','0');
-    document.querySelector('.card').addEventListener('keydown', (ev)=>{if(ev.key==='Enter' || ev.key===' ') ev.currentTarget.click();});
-  </script>
-  <!-- música de cumpleaños -->
-  <audio id="music" src="cumpleanos.mp3" autoplay loop controls></audio>
+/* DELAYS */
+setTimeout(() => { document.getElementById("titulo").style.display = "block"; }, 3000);
+setTimeout(() => { document.getElementById("torta").style.display = "block"; }, 5000);
+setTimeout(() => { document.getElementById("foto").style.display = "block"; }, 7000);
+setTimeout(() => { document.getElementById("mensaje").style.display = "block"; }, 10000);
+</script>
 
-  <!-- espacio para foto -->
-  <div class="photo-box">
-    <img id="user-photo" src="" alt="Foto" />
-  </div>
-  <!-- botón para subir foto -->
-  <input type="file" id="photo-input" accept="image/*" style="position:absolute;bottom:210px;right:20px;z-index:10;" />
-
-  <script>
-    const input = document.getElementById('photo-input');
-    const img = document.getElementById('user-photo');
-    input.addEventListener('change', e => {
-      const file = e.target.files[0];
-      if(file){ img.src = URL.createObjectURL(file); }
-    });
-  </script>
 </body>
 </html>
